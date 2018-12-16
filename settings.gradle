@@ -1,0 +1,3 @@
+rootProject.name = 'lure'
+enableFeaturePreview('STABLE_PUBLISHING')
+
