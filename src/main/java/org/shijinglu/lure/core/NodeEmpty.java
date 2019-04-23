@@ -11,6 +11,6 @@ public class NodeEmpty extends Node {
 
     @Override
     public IData evaluate(Map<String, IData> context) {
-        return BoolData.FLASE;
+        return BoolData.FALSE;
     }
 }

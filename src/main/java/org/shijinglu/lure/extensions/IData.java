@@ -1,8 +1,6 @@
 package org.shijinglu.lure.extensions;
 
 
-import org.shijinglu.lure.LureException;
-
 /**
  * Implement this interface to let Lure support customized data type.
  * e.g "ver in (v3.2.0, v3.2.1, v3.2.2)", we can set ver as the customized
@@ -16,9 +14,9 @@ public interface IData {
      *
      * @param raw string representation of a structured data, i.e. `v3.2.1`
      * @return casted data
-     * @throws LureException cast error
+     * @throws IllegalArgumentException cast error
      */
-    static IData fromString(String raw) throws LureException {
+    static IData fromString(String raw) throws IllegalArgumentException {
         return null;
     }
 

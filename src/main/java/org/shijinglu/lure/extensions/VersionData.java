@@ -63,7 +63,7 @@ public class VersionData implements IData {
 
     @Override
     public int toInt() {
-        return Integer.valueOf(String.valueOf(major) + String.valueOf(minor) + String.valueOf(patch));
+        return Integer.valueOf("" + major + minor + patch);
     }
 
     @Override

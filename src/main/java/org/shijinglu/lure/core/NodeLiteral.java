@@ -27,6 +27,6 @@ public class NodeLiteral extends Node {
 
     @Override
     public IData evaluate(Map<String, IData> context) {
-        return data == null ? BoolData.FLASE : data;
+        return data == null ? BoolData.FALSE : data;
     }
 }

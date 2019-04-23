@@ -38,6 +38,7 @@ public abstract class Node {
      */
     public abstract IData evaluate(Map<String, IData> context);
 
+    // TODO: remove EpType, this is usefull in c. In java we use overrides
     enum EpType {
         EpUnknown,
         EpFunction,

@@ -26,7 +26,7 @@ public class NodeIdentity extends Node {
     @Override
     public IData evaluate(Map<String, IData> context) {
         if (data == null) {
-            return BoolData.FLASE;
+            return BoolData.FALSE;
         }
         String key = data.toString();
         return context.getOrDefault(key, new StringData(key));

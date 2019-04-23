@@ -17,9 +17,12 @@ public class NodeIn extends Node {
     @Override
     public IData evaluate(Map<String, IData> context) {
         if (left == null || list == null) {
-            return BoolData.FLASE;
+            return BoolData.FALSE;
         }
         IData leftRes = left.evaluate(context);
+        if (list.getSet().contains(leftRes)) {
+            return BoolData.TRUE;
+        }
         if (list.isResolvable()) {
             for (Node n : list.getList()) {
                 if (leftRes.compareTo(n.evaluate(context)) == 0) {
@@ -27,7 +30,6 @@ public class NodeIn extends Node {
                 }
             }
         }
-        boolean res = list.getSet().contains(leftRes);
-        return res ? BoolData.TRUE : BoolData.FLASE;
+        return BoolData.FALSE;
     }
 }

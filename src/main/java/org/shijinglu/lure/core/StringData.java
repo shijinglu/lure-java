@@ -25,13 +25,13 @@ public class StringData implements IData {
     }
 
     @Override
-    public int toInt() {
-        return 0;
+    public int toInt() throws NumberFormatException {
+        return Integer.valueOf(value);
     }
 
     @Override
-    public double toDouble() {
-        return 0;
+    public double toDouble() throws NumberFormatException{
+        return Double.valueOf(value);
     }
 
     @Override

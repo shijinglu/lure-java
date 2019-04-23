@@ -1,5 +1,6 @@
 package org.shijinglu.lure;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.shijinglu.lure.extensions.IData;
 
@@ -37,11 +38,10 @@ public class ExprTest {
 
     void expect(boolean expectedRet, String expr, Map<String, IData> context) {
         System.out.println("eval expr: " + expr);
-        boolean res = Expr.compile(expr).eval(context) == expectedRet;
-        if (!res) {
-            System.out.println(expr + ", expected = " + expectedRet);
-        }
-        assert res;
+        Assert.assertEquals(
+                String.format("<%s> is expected to be <%s>", expr, expectedRet),
+                expectedRet,
+                Expr.compile(expr).eval(context));
     }
 
     @Test
@@ -71,12 +71,12 @@ public class ExprTest {
         expect(false, "USER_ID IN (122, 124, 125)", ctx);
         expect(false, "USER_ID between 124 and 125", ctx);
         expect(false, "USER_ID between 120 and 122", ctx);
-        expect(true, "USER_ID AND USER_ID", ctx);
-        expect(true, "USER_ID OR ZERO_INT", ctx);
-        expect(false, "USER_ID AND ZERO_INT", ctx);
-        expect(false, "ZERO_INT AND ZERO_INT", ctx);
-        expect(true, "(USER_ID == 123)  (ZERO_INT == 0)", ctx);
-        expect(true, "USER_ID == 123  ZERO_INT == 0", ctx);
+        expect(true, "USER_ID && USER_ID", ctx);
+        expect(true, "USER_ID || ZERO_INT", ctx);
+        expect(false, "USER_ID && ZERO_INT", ctx);
+        expect(false, "ZERO_INT && ZERO_INT", ctx);
+        expect(true, "(USER_ID == 123) && (ZERO_INT == 0)", ctx);
+        expect(true, "USER_ID == 123 || ZERO_INT == 0", ctx);
         expect(true, "(USER_ID == 123) || ZERO_INT == 1", ctx);
         expect(false, "(USER_ID == 122) || ZERO_INT == 1",ctx);
         expect(true, "PI == 3.140", ctx);
@@ -125,10 +125,10 @@ public class ExprTest {
         expect(false, "USER_TAGS IN (adm, admi, adminx, admin_)", ctx);
         expect(false, "USER_TAGS between admio and admip", ctx);
         expect(false, "USER_TAGS between admia and admib", ctx);
-        expect(false, "USER_TAGS AND USER_TAGS", ctx);
-        expect(false, "USER_TAGS OR EMPTY_STR", ctx);
-        expect(false, "USER_TAGS AND EMPTY_STR", ctx);
-        expect(false, "EMPTY_STR AND EMPTY_STR", ctx);
+        expect(false, "USER_TAGS && USER_TAGS", ctx);
+        expect(false, "USER_TAGS || EMPTY_STR", ctx);
+        expect(false, "USER_TAGS && EMPTY_STR", ctx);
+        expect(false, "EMPTY_STR && EMPTY_STR", ctx);
         expect(true, "(USER_TAGS == admin)  && (EMPTY_STR == ``)", ctx);
         expect(true, "(USER_TAGS == admin) && EMPTY_STR == ``", ctx);
         expect(true, "(USER_TAGS == admin) || EMPTY_STR == ``", ctx);

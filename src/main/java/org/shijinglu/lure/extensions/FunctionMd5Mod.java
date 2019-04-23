@@ -32,6 +32,6 @@ public class FunctionMd5Mod implements IFunction {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return BoolData.FLASE;
+        return BoolData.FALSE;
     }
 }

@@ -6,7 +6,7 @@ import org.shijinglu.lure.extensions.IData;
 public class BoolData implements IData {
 
     public static final BoolData TRUE = new BoolData(true);
-    public static final BoolData FLASE = new BoolData(false);
+    public static final BoolData FALSE = new BoolData(false);
     private final boolean value;
 
     public BoolData(boolean v) {

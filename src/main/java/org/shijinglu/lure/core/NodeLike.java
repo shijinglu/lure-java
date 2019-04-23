@@ -17,13 +17,13 @@ public class NodeLike extends Node {
     public IData evaluate(Map<String, IData> context) {
 
         if (left == null || right == null) {
-            return BoolData.FLASE;
+            return BoolData.FALSE;
         }
         IData leftRes = left.evaluate(context);
         IData rightRes = right.evaluate(context);
         if (leftRes.toString().matches(rightRes.toString())) {
             return BoolData.TRUE;
         }
-        return BoolData.FLASE;
+        return BoolData.FALSE;
     }
 }

@@ -61,11 +61,11 @@ publishing {
         maven(MavenPublication) {
             groupId = 'org.shijinglu.lure'
             artifactId = 'lure-java'
-            version = '0.0.1'
+            version = "${version}"
             from components.java
             pom {
                 name = 'Lu\' Rule Engine'
-                description = 'A small DSL lib that handles rule evalues'
+                description = 'A small DSL lib that handles rule evaluation'
                 developers {
                     developer {
                         id = 'shijinglu'

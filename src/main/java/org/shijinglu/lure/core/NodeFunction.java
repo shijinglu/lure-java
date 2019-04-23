@@ -20,7 +20,7 @@ public class NodeFunction extends Node {
     @Override
     public IData evaluate(final Map<String, IData> context) {
         if (left == null || list == null) {
-            return BoolData.FLASE;
+            return BoolData.FALSE;
         }
         final boolean shouldResolveList = list.isResolvable();
         List<IData> params = list.getList()
@@ -36,7 +36,7 @@ public class NodeFunction extends Node {
         final String fname = left.data.toString();
         IFunction function = ExtensionManager.FUNCTIONS.get(fname);
         if (function == null) {
-            return BoolData.FLASE;
+            return BoolData.FALSE;
         }
         return function.derive(params);
     }
