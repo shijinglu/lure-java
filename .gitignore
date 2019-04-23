@@ -12,7 +12,7 @@ build/test-results/
 build/tmp/
 .project
 bin/
-gradle/wrapper/gradle-wrapper.properties
+
 
 # Ignore Gradle GUI config
 gradle-app.setting
