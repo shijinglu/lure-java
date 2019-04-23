@@ -2,8 +2,8 @@ plugins {
     id 'java'
 }
 
-group 'com.github.shijinglu'
-version '0.1.0'
+group 'org.shijinglu'
+version '0.1.1'
 
 sourceCompatibility = 1.8
 
