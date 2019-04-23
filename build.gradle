@@ -3,9 +3,10 @@ plugins {
 }
 
 group 'org.shijinglu'
-version '0.1.1'
+version '0.1.2'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 apply plugin: 'java'
 apply plugin: 'antlr'
@@ -59,13 +60,13 @@ publishing {
             from components.java
         }
         maven(MavenPublication) {
-            groupId = 'org.shijinglu.lure'
+            groupId = 'org.shijinglu'
             artifactId = 'lure-java'
             version = "${version}"
             from components.java
             pom {
                 name = 'Lu\' Rule Engine'
-                description = 'A small DSL lib that handles rule evaluation'
+                description = 'A light ware DSL lib that handles rule evaluation'
                 developers {
                     developer {
                         id = 'shijinglu'
@@ -74,9 +75,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:git:git://github.com/shijinglu/lure.java.git'
-                    developerConnection = 'scm:git:ssh://github.com/shijinglu/lure.java.git'
-                    url = 'https://github.com/shijinglu/lure.java'
+                    connection = 'scm:git:git://github.com/shijinglu/lure-java.git'
+                    developerConnection = 'scm:git:ssh://github.com/shijinglu/lure-java.git'
+                    url = 'https://github.com/shijinglu/lure-java'
                 }
             }
         }
