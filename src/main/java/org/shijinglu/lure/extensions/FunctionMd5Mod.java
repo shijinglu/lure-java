@@ -1,15 +1,14 @@
 package org.shijinglu.lure.extensions;
 
-import org.shijinglu.lure.LureException;
-import org.shijinglu.lure.core.BoolData;
-import org.shijinglu.lure.core.IntData;
+import static org.shijinglu.lure.LureException.ExceptionType.CastError;
 
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
-import static org.shijinglu.lure.LureException.ExceptionType.CastError;
+import org.shijinglu.lure.LureException;
+import org.shijinglu.lure.core.BoolData;
+import org.shijinglu.lure.core.IntData;
 
 public class FunctionMd5Mod implements IFunction {
     @Override

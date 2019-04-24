@@ -1,5 +1,7 @@
 package org.shijinglu.lure;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -15,9 +17,6 @@ import org.shijinglu.lure.extensions.ExtensionManager;
 import org.shijinglu.lure.extensions.IData;
 import org.shijinglu.lure.grammar.LureLexer;
 import org.shijinglu.lure.grammar.LureParser;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Expr {
     private final Node ast;
@@ -58,7 +57,7 @@ public class Expr {
      * Eval on the fly
      *
      * @param exprString a string literal that represents an rule, e.g. "CITY_ID == 1"
-     * @param context    collection of contexts, such as CITY_ID: 5
+     * @param context collection of contexts, such as CITY_ID: 5
      * @return
      */
     public static boolean eval(String exprString, Map<String, IData> context) {
@@ -88,8 +87,11 @@ public class Expr {
             return this;
         }
 
-        public ContextBuilder addCustomizedContext(String ctxKey, String ctxValRaw, String typeName) {
-            _context.put(ctxKey, ExtensionManager.EXT_DATA_TYPES.get(typeName).create(ctxValRaw, typeName));
+        public ContextBuilder addCustomizedContext(
+                String ctxKey, String ctxValRaw, String typeName) {
+            _context.put(
+                    ctxKey,
+                    ExtensionManager.EXT_DATA_TYPES.get(typeName).create(ctxValRaw, typeName));
             return this;
         }
 

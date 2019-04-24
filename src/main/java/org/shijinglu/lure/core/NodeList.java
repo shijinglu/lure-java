@@ -1,15 +1,12 @@
 package org.shijinglu.lure.core;
 
-import org.shijinglu.lure.extensions.IData;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.shijinglu.lure.extensions.IData;
 
-/**
- * Roughly equivalent to expr_list in the grammar
- */
+/** Roughly equivalent to expr_list in the grammar */
 public class NodeList {
     private final List<Node> list;
     private final Set<IData> set;
@@ -37,9 +34,7 @@ public class NodeList {
         }
     }
 
-    /**
-     * @return return true if any node is resolvable.
-     */
+    /** @return return true if any node is resolvable. */
     boolean isResolvable() {
         return resolvable;
     }

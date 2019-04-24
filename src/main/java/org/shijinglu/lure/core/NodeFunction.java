@@ -1,12 +1,11 @@
 package org.shijinglu.lure.core;
 
-import org.shijinglu.lure.extensions.ExtensionManager;
-import org.shijinglu.lure.extensions.IData;
-import org.shijinglu.lure.extensions.IFunction;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.shijinglu.lure.extensions.ExtensionManager;
+import org.shijinglu.lure.extensions.IData;
+import org.shijinglu.lure.extensions.IFunction;
 
 public class NodeFunction extends Node {
     NodeFunction(Node left, Node right, NodeList list, String key, IData data) {
@@ -14,8 +13,8 @@ public class NodeFunction extends Node {
     }
 
     /**
-     * Use left node string to search (case sensitive) for the functional in the extensions.
-     * If hit miss, return false, else use the functional to eval.
+     * Use left node string to search (case sensitive) for the functional in the extensions. If hit
+     * miss, return false, else use the functional to eval.
      */
     @Override
     public IData evaluate(final Map<String, IData> context) {
@@ -23,15 +22,16 @@ public class NodeFunction extends Node {
             return BoolData.FALSE;
         }
         final boolean shouldResolveList = list.isResolvable();
-        List<IData> params = list.getList()
-                .stream()
-                .map(n -> {
-                    if (shouldResolveList) {
-                        return n.evaluate(context);
-                    }
-                    return n.data;
-                })
-                .collect(Collectors.toList());
+        List<IData> params =
+                list.getList().stream()
+                        .map(
+                                n -> {
+                                    if (shouldResolveList) {
+                                        return n.evaluate(context);
+                                    }
+                                    return n.data;
+                                })
+                        .collect(Collectors.toList());
         // left node string serves as the function name
         final String fname = left.data.toString();
         IFunction function = ExtensionManager.FUNCTIONS.get(fname);

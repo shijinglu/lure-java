@@ -1,8 +1,7 @@
 package org.shijinglu.lure.core;
 
-import org.shijinglu.lure.extensions.IData;
-
 import java.util.Map;
+import org.shijinglu.lure.extensions.IData;
 
 public class NodeBinOp extends Node {
     private final OpType op;
@@ -48,6 +47,13 @@ public class NodeBinOp extends Node {
     }
 
     enum OpType {
-        EQ, NE, GT, LT, GE, LE, AND, OR
+        EQ,
+        NE,
+        GT,
+        LT,
+        GE,
+        LE,
+        AND,
+        OR
     }
 }

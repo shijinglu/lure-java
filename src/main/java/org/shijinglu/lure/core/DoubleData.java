@@ -14,8 +14,8 @@ public class DoubleData implements IData {
         try {
             return new DoubleData(Double.valueOf(raw));
         } catch (NumberFormatException e) {
-            throw LureException.of(LureException.ExceptionType.CastError,
-                    "Cannot cast '" + raw + "' to double");
+            throw LureException.of(
+                    LureException.ExceptionType.CastError, "Cannot cast '" + raw + "' to double");
         }
     }
 

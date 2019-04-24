@@ -1,13 +1,9 @@
 package org.shijinglu.lure.core;
 
-
+import java.util.Map;
 import org.shijinglu.lure.extensions.IData;
 
-import java.util.Map;
-
-/**
- * Abstract syntax tree node, roughly equal to expr in the grammar
- */
+/** Abstract syntax tree node, roughly equal to expr in the grammar */
 public abstract class Node {
     final EpType epType;
     final Node left;
@@ -25,10 +21,7 @@ public abstract class Node {
         this.data = data;
     }
 
-    /**
-     * Node is resolvable if its value may be derived from context map
-     * or function eval.
-     */
+    /** Node is resolvable if its value may be derived from context map or function eval. */
     boolean isResolvable() {
         return epType == EpType.EpFunction || epType == EpType.EpIdentity;
     }

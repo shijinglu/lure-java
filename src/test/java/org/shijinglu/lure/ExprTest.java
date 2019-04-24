@@ -1,32 +1,30 @@
 package org.shijinglu.lure;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 import org.shijinglu.lure.extensions.IData;
 
-import java.util.Map;
-
-import static org.junit.Assert.assertTrue;
-
-
 public class ExprTest {
-    Map<String, IData> ctx = new Expr.ContextBuilder()
-            .addDoubleContext("PI", 3.14)
-            .addDoubleContext("ZERO_REAL", 0.0)
-            .addCustomizedContext("APP_VERSION", "v3.2.1", "semver")
-            .addCustomizedContext("ZERO_VERSION", "v0.0.0", "semver")
-            .addStringContext("USER_TAGS", "admin")
-            .addStringContext("EMPTY_STR", "")
-            .addIntContext("USER_ID", 123)
-            .addIntContext("ZERO_INT", 0)
-            .addStringContext("environment", "Dev")
-            .build();
+    Map<String, IData> ctx =
+            new Expr.ContextBuilder()
+                    .addDoubleContext("PI", 3.14)
+                    .addDoubleContext("ZERO_REAL", 0.0)
+                    .addCustomizedContext("APP_VERSION", "v3.2.1", "semver")
+                    .addCustomizedContext("ZERO_VERSION", "v0.0.0", "semver")
+                    .addStringContext("USER_TAGS", "admin")
+                    .addStringContext("EMPTY_STR", "")
+                    .addIntContext("USER_ID", 123)
+                    .addIntContext("ZERO_INT", 0)
+                    .addStringContext("environment", "Dev")
+                    .build();
 
     @Test
     public void compile() {
-        Map<String, IData> context =  new Expr.ContextBuilder()
-                .addDoubleContext("pValue", 3.14)
-                .build();
+        Map<String, IData> context =
+                new Expr.ContextBuilder().addDoubleContext("pValue", 3.14).build();
 
         assertTrue(Expr.compile("pValue >= 3.14").eval(context));
     }
@@ -59,9 +57,9 @@ public class ExprTest {
         expect(false, "USER_ID == 122", ctx);
         expect(false, "USER_ID >= 125", ctx);
         expect(false, "USER_ID <= 122", ctx);
-        expect(false, "USER_ID >= 125",  ctx);
+        expect(false, "USER_ID >= 125", ctx);
         expect(false, "USER_ID >  125", ctx);
-        expect(false, "USER_ID <  122",  ctx);
+        expect(false, "USER_ID <  122", ctx);
         expect(false, "USER_ID != 123", ctx);
         expect(true, "USER_ID IN (122, 123, 124)", ctx);
         expect(true, "USER_ID NOT IN (122, 124, 125)", ctx);
@@ -78,7 +76,7 @@ public class ExprTest {
         expect(true, "(USER_ID == 123) && (ZERO_INT == 0)", ctx);
         expect(true, "USER_ID == 123 || ZERO_INT == 0", ctx);
         expect(true, "(USER_ID == 123) || ZERO_INT == 1", ctx);
-        expect(false, "(USER_ID == 122) || ZERO_INT == 1",ctx);
+        expect(false, "(USER_ID == 122) || ZERO_INT == 1", ctx);
         expect(true, "PI == 3.140", ctx);
         expect(true, "PI >= 3.140", ctx);
         expect(true, "PI <= 3.140", ctx);

@@ -1,8 +1,7 @@
 package org.shijinglu.lure.core;
 
-import org.shijinglu.lure.extensions.IData;
-
 import java.util.Map;
+import org.shijinglu.lure.extensions.IData;
 
 public class NodeIn extends Node {
     public NodeIn(Node left, Node right, NodeList list, String key, IData data) {
@@ -10,9 +9,9 @@ public class NodeIn extends Node {
     }
 
     /**
-     * This eval will first resolve left side and then go through the list
-     * and resolve all nodes recursively if right side is resolvable, if
-     * not, it simple use call set.contains for quick look up.
+     * This eval will first resolve left side and then go through the list and resolve all nodes
+     * recursively if right side is resolvable, if not, it simple use call set.contains for quick
+     * look up.
      */
     @Override
     public IData evaluate(Map<String, IData> context) {

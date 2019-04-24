@@ -1,8 +1,7 @@
 package org.shijinglu.lure.core;
 
-import org.shijinglu.lure.extensions.IData;
-
 import java.util.Map;
+import org.shijinglu.lure.extensions.IData;
 
 public class NodeLike extends Node {
     NodeLike(Node left, Node right, NodeList list, String key, IData data) {
@@ -10,8 +9,8 @@ public class NodeLike extends Node {
     }
 
     /**
-     * This eval treats the right node's string value as a regex and return true of the
-     * left side matches the right patten.
+     * This eval treats the right node's string value as a regex and return true of the left side
+     * matches the right patten.
      */
     @Override
     public IData evaluate(Map<String, IData> context) {

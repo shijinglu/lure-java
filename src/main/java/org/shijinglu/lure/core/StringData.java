@@ -30,7 +30,7 @@ public class StringData implements IData {
     }
 
     @Override
-    public double toDouble() throws NumberFormatException{
+    public double toDouble() throws NumberFormatException {
         return Double.valueOf(value);
     }
 

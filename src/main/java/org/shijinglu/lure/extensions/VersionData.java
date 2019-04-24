@@ -1,9 +1,8 @@
 package org.shijinglu.lure.extensions;
 
+import static org.shijinglu.lure.LureException.ExceptionType.CastError;
 
 import org.shijinglu.lure.LureException;
-
-import static org.shijinglu.lure.LureException.ExceptionType.CastError;
 
 public class VersionData implements IData {
 
@@ -98,8 +97,13 @@ public class VersionData implements IData {
 
     public static class VersionDataBuilder implements IDataFactory {
         @Override
-        public IData create(String valRaw, String extKey) {
-            return new VersionData(extKey, valRaw);
+        public String extKey() {
+            return "semver";
+        }
+
+        @Override
+        public IData create(String valRaw) {
+            return new VersionData(this.extKey(), valRaw);
         }
     }
 }

@@ -1,8 +1,7 @@
 package org.shijinglu.lure.core;
 
-import org.shijinglu.lure.extensions.IData;
-
 import java.util.Map;
+import org.shijinglu.lure.extensions.IData;
 
 public class NodeEmpty extends Node {
     NodeEmpty() {

@@ -1,18 +1,5 @@
 package org.shijinglu.lure.core;
 
-
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import org.antlr.v4.runtime.tree.TerminalNodeImpl;
-import org.shijinglu.lure.LureException;
-import org.shijinglu.lure.grammar.LureBaseListener;
-import org.shijinglu.lure.grammar.LureParser;
-
-import java.util.IdentityHashMap;
-import java.util.Map;
-
 import static org.shijinglu.lure.LureException.ExceptionType.ParseError;
 import static org.shijinglu.lure.core.NodeBinOp.OpType.AND;
 import static org.shijinglu.lure.core.NodeBinOp.OpType.EQ;
@@ -23,6 +10,17 @@ import static org.shijinglu.lure.core.NodeBinOp.OpType.LT;
 import static org.shijinglu.lure.core.NodeBinOp.OpType.NE;
 import static org.shijinglu.lure.core.NodeBinOp.OpType.OR;
 
+import java.util.IdentityHashMap;
+import java.util.Map;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import org.antlr.v4.runtime.tree.TerminalNodeImpl;
+import org.shijinglu.lure.LureException;
+import org.shijinglu.lure.grammar.LureBaseListener;
+import org.shijinglu.lure.grammar.LureParser;
+
 public class AstBuilder extends LureBaseListener {
     private final Map<ParseTree, Node> astMap = new IdentityHashMap<>();
     private Node root;
@@ -31,9 +29,7 @@ public class AstBuilder extends LureBaseListener {
         return root;
     }
 
-    /**
-     * `expr_list: expr_list ',' expr`
-     */
+    /** `expr_list: expr_list ',' expr` */
     @Override
     public void exitExprListAppend(LureParser.ExprListAppendContext ctx) {
         super.exitExprListAppend(ctx);
@@ -46,9 +42,7 @@ public class AstBuilder extends LureBaseListener {
         astMap.put(ctx, n);
     }
 
-    /**
-     * `expr_list: expr`
-     */
+    /** `expr_list: expr` */
     @Override
     public void exitExprListUnary(LureParser.ExprListUnaryContext ctx) {
         super.exitExprListUnary(ctx);
@@ -59,68 +53,69 @@ public class AstBuilder extends LureBaseListener {
     @Override
     public void exitExprDoubleOp(LureParser.ExprDoubleOpContext ctx) {
         super.exitExprDoubleOp(ctx);
-        astMap.put(ctx, fromBinOp(
-                ctx.cmp_op().getChild(0),
-                astMap.get(ctx.expr(0)),
-                astMap.get(ctx.expr(1))));
+        astMap.put(
+                ctx,
+                fromBinOp(
+                        ctx.cmp_op().getChild(0),
+                        astMap.get(ctx.expr(0)),
+                        astMap.get(ctx.expr(1))));
     }
 
     @Override
     public void exitExprInOp(LureParser.ExprInOpContext ctx) {
         super.exitExprInOp(ctx);
         // ctx.expr_list()
-        astMap.put(ctx, new NodeIn(
-                astMap.get(ctx.expr()),
-                null,
-                astMap.get(ctx.expr_list()).list,
-                null,
-                null
-        ));
+        astMap.put(
+                ctx,
+                new NodeIn(
+                        astMap.get(ctx.expr()),
+                        null,
+                        astMap.get(ctx.expr_list()).list,
+                        null,
+                        null));
     }
 
     @Override
     public void exitExprFunction(LureParser.ExprFunctionContext ctx) {
         super.exitExprFunction(ctx);
-        astMap.put(ctx,
+        astMap.put(
+                ctx,
                 new NodeFunction(
                         NodeIdentity.fromString(ctx.getChild(0).getText()),
                         null,
                         astMap.get(ctx.expr_list()).list,
                         null,
-                        null)
-        );
+                        null));
     }
 
     @Override
     public void exitExprBetweenOp(LureParser.ExprBetweenOpContext ctx) {
         super.exitExprBetweenOp(ctx);
-        Node n1 = new NodeBinOp(GE, astMap.get(ctx.expr(0)), astMap.get(ctx.expr(1)), null, null, null);
-        Node n2 = new NodeBinOp(LE, astMap.get(ctx.expr(0)), astMap.get(ctx.expr(2)), null, null, null);
+        Node n1 =
+                new NodeBinOp(
+                        GE, astMap.get(ctx.expr(0)), astMap.get(ctx.expr(1)), null, null, null);
+        Node n2 =
+                new NodeBinOp(
+                        LE, astMap.get(ctx.expr(0)), astMap.get(ctx.expr(2)), null, null, null);
         astMap.put(ctx, new NodeBinOp(AND, n1, n2, null, null, null));
     }
 
     @Override
     public void exitExprOrOp(LureParser.ExprOrOpContext ctx) {
         super.exitExprOrOp(ctx);
-        astMap.put(ctx, new NodeBinOp(
-                OR,
-                astMap.get(ctx.expr(0)),
-                astMap.get(ctx.expr(1)),
-                null,
-                null,
-                null));
+        astMap.put(
+                ctx,
+                new NodeBinOp(
+                        OR, astMap.get(ctx.expr(0)), astMap.get(ctx.expr(1)), null, null, null));
     }
 
     @Override
     public void exitExprAndOp(LureParser.ExprAndOpContext ctx) {
         super.exitExprAndOp(ctx);
-        astMap.put(ctx, new NodeBinOp(
-                AND,
-                astMap.get(ctx.expr(0)),
-                astMap.get(ctx.expr(1)),
-                null,
-                null,
-                null));
+        astMap.put(
+                ctx,
+                new NodeBinOp(
+                        AND, astMap.get(ctx.expr(0)), astMap.get(ctx.expr(1)), null, null, null));
     }
 
     @Override
@@ -128,7 +123,8 @@ public class AstBuilder extends LureBaseListener {
         super.exitExprLiteralValue(ctx);
         Node n = astMap.get(ctx.literal_value());
         if (n == null) {
-            throw LureException.of(ParseError,
+            throw LureException.of(
+                    ParseError,
                     "fail to parse 'expr: literal_value' rule, literal value cannot be null");
         }
         astMap.put(ctx, n);
@@ -143,37 +139,37 @@ public class AstBuilder extends LureBaseListener {
     @Override
     public void exitExprNotInOp(LureParser.ExprNotInOpContext ctx) {
         super.exitExprNotInOp(ctx);
-        Node in = new NodeIn(
-                astMap.get(ctx.expr()),
-                null,
-                astMap.get(ctx.expr_list()).list,
-                null,
-                null
-        );
+        Node in =
+                new NodeIn(
+                        astMap.get(ctx.expr()), null, astMap.get(ctx.expr_list()).list, null, null);
         astMap.put(ctx, new NodeBinOp(EQ, in, NodeLiteral.fromBoolean(false), null, null, null));
     }
 
     @Override
     public void exitExprUnaryOp(LureParser.ExprUnaryOpContext ctx) {
         super.exitExprUnaryOp(ctx);
-        astMap.put(ctx, new NodeBinOp(
-                EQ,
-                astMap.get(ctx.expr()),
-                NodeLiteral.fromBoolean(false),
-                null,
-                null,
-                null));
+        astMap.put(
+                ctx,
+                new NodeBinOp(
+                        EQ,
+                        astMap.get(ctx.expr()),
+                        NodeLiteral.fromBoolean(false),
+                        null,
+                        null,
+                        null));
     }
 
     @Override
     public void exitExprLikeOp(LureParser.ExprLikeOpContext ctx) {
         super.exitExprLikeOp(ctx);
-        astMap.put(ctx, new NodeLike(
-                NodeIdentity.fromString(ctx.expr().getText()),
-                NodeIdentity.fromString(ctx.getChild(2).getText()),
-                null,
-                null,
-                null));
+        astMap.put(
+                ctx,
+                new NodeLike(
+                        NodeIdentity.fromString(ctx.expr().getText()),
+                        NodeIdentity.fromString(ctx.getChild(2).getText()),
+                        null,
+                        null,
+                        null));
     }
 
     private Node fromBinOp(ParseTree token, Node left, Node right) {
@@ -202,7 +198,6 @@ public class AstBuilder extends LureBaseListener {
     @Override
     public void enterCmp_op(LureParser.Cmp_opContext ctx) {
         super.enterCmp_op(ctx);
-
     }
 
     @Override

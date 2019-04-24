@@ -13,7 +13,6 @@ public class LureException extends RuntimeException {
         this.type = type;
     }
 
-
     public static LureException of(ExceptionType type, String message) {
         return new LureException(type, message, null);
     }

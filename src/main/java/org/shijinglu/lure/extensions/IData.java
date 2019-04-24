@@ -1,11 +1,9 @@
 package org.shijinglu.lure.extensions;
 
-
 /**
- * Implement this interface to let Lure support customized data type.
- * e.g "ver in (v3.2.0, v3.2.1, v3.2.2)", we can set ver as the customized
- * data type in the context:
- * ver -> {value: "v3.2.2", type: "semver"}
+ * Implement this interface to let Lure support customized data type. e.g "ver in (v3.2.0, v3.2.1,
+ * v3.2.2)", we can set ver as the customized data type in the context: ver -> {value: "v3.2.2",
+ * type: "semver"}
  */
 public interface IData {
 
@@ -21,9 +19,8 @@ public interface IData {
     }
 
     /**
-     * Return non-null value if this is a customized data type. This key will
-     * be used to search corresponding IData implementations in the extension
-     * library.
+     * Return non-null value if this is a customized data type. This key will be used to search
+     * corresponding IData implementations in the extension library.
      *
      * @return key of the extension, e.g "semver" for semantic version type.
      */

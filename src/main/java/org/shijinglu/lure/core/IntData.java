@@ -14,8 +14,8 @@ public class IntData implements IData {
         try {
             return new IntData(Integer.valueOf(raw));
         } catch (NumberFormatException e) {
-            throw LureException.of(LureException.ExceptionType.CastError,
-                    "Cannot cast '" + raw + "' to integer");
+            throw LureException.of(
+                    LureException.ExceptionType.CastError, "Cannot cast '" + raw + "' to integer");
         }
     }
 
