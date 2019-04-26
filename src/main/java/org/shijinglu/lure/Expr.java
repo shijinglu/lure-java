@@ -89,9 +89,7 @@ public class Expr {
 
         public ContextBuilder addCustomizedContext(
                 String ctxKey, String ctxValRaw, String typeName) {
-            _context.put(
-                    ctxKey,
-                    ExtensionManager.EXT_DATA_TYPES.get(typeName).create(ctxValRaw, typeName));
+            _context.put(ctxKey, ExtensionManager.getDataFactor(typeName).create(ctxValRaw));
             return this;
         }
 

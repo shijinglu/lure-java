@@ -34,7 +34,7 @@ public class NodeFunction extends Node {
                         .collect(Collectors.toList());
         // left node string serves as the function name
         final String fname = left.data.toString();
-        IFunction function = ExtensionManager.FUNCTIONS.get(fname);
+        IFunction function = ExtensionManager.getFunction(fname);
         if (function == null) {
             return BoolData.FALSE;
         }

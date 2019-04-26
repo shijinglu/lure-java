@@ -4,8 +4,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class ExtensionManager {
-    public static final ConcurrentMap<String, IFunction> FUNCTIONS;
-    public static final ConcurrentMap<String, IDataFactory> EXT_DATA_TYPES;
+    private static final ConcurrentMap<String, IFunction> FUNCTIONS;
+    private static final ConcurrentMap<String, IDataFactory> EXT_DATA_TYPES;
 
     static {
         FUNCTIONS = new ConcurrentHashMap<>();
@@ -14,7 +14,11 @@ public class ExtensionManager {
         addDataFactory(new VersionData.VersionDataBuilder());
     }
 
-    static void addFunction(IFunction f) {
+    public static IFunction getFunction(String fname) {
+        return FUNCTIONS.get(fname);
+    }
+
+    public static void addFunction(IFunction f) {
         String fname = f.functionName();
         if (FUNCTIONS.containsKey(fname)) {
             throw new IllegalArgumentException(
@@ -25,7 +29,11 @@ public class ExtensionManager {
         FUNCTIONS.put(fname, f);
     }
 
-    static void addDataFactory(IDataFactory df) {
+    public static IDataFactory getDataFactor(String dfName) {
+        return EXT_DATA_TYPES.get(dfName);
+    }
+
+    public static void addDataFactory(IDataFactory df) {
         String extKey = df.extKey();
         if (EXT_DATA_TYPES.containsKey(extKey)) {
             throw new IllegalArgumentException(
